@@ -142,6 +142,7 @@ class Item:
         self.price = price
         self.is_bought = is_bought
         self.is_put_on = is_put_on
+        self.file = file
         self.image = load_image(file, DOG_WIDTH // 1.7, DOG_HEIGHT // 1.7)
         self.full_image = load_image(file, DOG_WIDTH, DOG_HEIGHT)
 
@@ -160,12 +161,13 @@ class ClothesMenu:
 
         for item in data:
             self.items.append(Item(*item.values()))
+
         self.current_item = 0
 
-        for i in range(self.current_item):
-            if self.current_item % 2 != 0:
-                self.item_rect = self.items[self.current_item].image.get_rect()
-                self.item_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+        # for i in self.items:
+        #     if self.current_item % 2 != 0:
+        self.item_rect = self.items[self.current_item].image.get_rect()
+        self.item_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
 
         self.next_button = Button("Вперед", SCREEN_WIDTH - MENU_NAV_XPAD - BUTTON_WIDTH,
                                   550 - 130,
@@ -225,6 +227,7 @@ class ClothesMenu:
 
     def draw(self, screen):
         screen.blit(self.menu_page, (0, 0))
+
         screen.blit(self.items[self.current_item].image, self.item_rect)
 
         if self.items[self.current_item].is_bought:
@@ -449,7 +452,7 @@ class Game:
         self.upgrade_button = Button("Улучшить", SCREEN_WIDTH - ICON_SIZE, 0, width=BUTTON_WIDTH // 3,
                                      height=BUTTON_HEIGHT // 3, text_font=mini_font, func=self.increase_money)
 
-        self.death_screen = load_image("img_.png", SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.death_screen = load_image("img_2.png", SCREEN_WIDTH, SCREEN_HEIGHT)
 
         self.buttons = [self.eat_button, self.clothes_button, self.games_button, self.upgrade_button]
 
@@ -565,11 +568,11 @@ class Game:
                             "is_put_on": item.is_put_on,
                             "is_bought": item.is_bought})
 
-                    with open("safe.json", "w", encoding="utf-8") as f:
-                        json.dump(data, f, ensure_ascii=False)
+                with open("safe.json", "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False)
 
-                    pg.quit()
-                    exit()
+                pg.quit()
+                exit()
 
             if event.type == self.DECREASE:
                 chance = random.randint(1, 10)
