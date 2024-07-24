@@ -452,7 +452,7 @@ class Game:
         self.upgrade_button = Button("Улучшить", SCREEN_WIDTH - ICON_SIZE, 0, width=BUTTON_WIDTH // 3,
                                      height=BUTTON_HEIGHT // 3, text_font=mini_font, func=self.increase_money)
 
-        self.death_screen = load_image("img_2.png", SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.death_screen = load_image("img_.png", SCREEN_WIDTH, SCREEN_HEIGHT)
 
         self.buttons = [self.eat_button, self.clothes_button, self.games_button, self.upgrade_button]
 
